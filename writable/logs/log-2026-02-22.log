@@ -1,0 +1,6 @@
+CRITICAL - 2026-02-22 07:04:00 --> Class "App\Models\LocalizacaoModel" not found
+#0 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(779): App\Controllers\Alunos->__construct()
+#1 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(390): CodeIgniter\CodeIgniter->createController()
+#2 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}

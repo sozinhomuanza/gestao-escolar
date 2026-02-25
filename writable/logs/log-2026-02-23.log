@@ -1,0 +1,257 @@
+ERROR - 2026-02-23 10:54:24 --> mysqli_sql_exception: Unknown column 'DISTINCT' in 'field list' in C:\xampp\htdocs\projeto-escola\system\Database\MySQLi\Connection.php:295
+Stack trace:
+#0 C:\xampp\htdocs\projeto-escola\system\Database\MySQLi\Connection.php(295): mysqli->query('SELECT `DISTINC...', 0)
+#1 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(663): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `DISTINC...')
+#2 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(591): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `DISTINC...')
+#3 C:\xampp\htdocs\projeto-escola\system\Database\BaseBuilder.php(1428): CodeIgniter\Database\BaseConnection->query('SELECT `DISTINC...', Array, false)
+#4 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(41): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#7 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2026-02-23 10:54:24 --> Unknown column 'DISTINCT' in 'field list'
+#0 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(663): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `DISTINC...')
+#1 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(591): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `DISTINC...')
+#2 C:\xampp\htdocs\projeto-escola\system\Database\BaseBuilder.php(1428): CodeIgniter\Database\BaseConnection->query('SELECT `DISTINC...', Array, false)
+#3 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(41): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+ERROR - 2026-02-23 10:54:39 --> mysqli_sql_exception: Unknown column 'DISTINCT' in 'field list' in C:\xampp\htdocs\projeto-escola\system\Database\MySQLi\Connection.php:295
+Stack trace:
+#0 C:\xampp\htdocs\projeto-escola\system\Database\MySQLi\Connection.php(295): mysqli->query('SELECT `DISTINC...', 0)
+#1 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(663): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `DISTINC...')
+#2 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(591): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `DISTINC...')
+#3 C:\xampp\htdocs\projeto-escola\system\Database\BaseBuilder.php(1428): CodeIgniter\Database\BaseConnection->query('SELECT `DISTINC...', Array, false)
+#4 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(41): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#7 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2026-02-23 10:54:39 --> Unknown column 'DISTINCT' in 'field list'
+#0 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(663): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `DISTINC...')
+#1 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(591): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `DISTINC...')
+#2 C:\xampp\htdocs\projeto-escola\system\Database\BaseBuilder.php(1428): CodeIgniter\Database\BaseConnection->query('SELECT `DISTINC...', Array, false)
+#3 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(41): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+ERROR - 2026-02-23 10:54:58 --> mysqli_sql_exception: Unknown column 'DISTINCT' in 'field list' in C:\xampp\htdocs\projeto-escola\system\Database\MySQLi\Connection.php:295
+Stack trace:
+#0 C:\xampp\htdocs\projeto-escola\system\Database\MySQLi\Connection.php(295): mysqli->query('SELECT `DISTINC...', 0)
+#1 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(663): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `DISTINC...')
+#2 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(591): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `DISTINC...')
+#3 C:\xampp\htdocs\projeto-escola\system\Database\BaseBuilder.php(1428): CodeIgniter\Database\BaseConnection->query('SELECT `DISTINC...', Array, false)
+#4 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(41): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#7 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2026-02-23 10:54:58 --> Unknown column 'DISTINCT' in 'field list'
+#0 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(663): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `DISTINC...')
+#1 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(591): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `DISTINC...')
+#2 C:\xampp\htdocs\projeto-escola\system\Database\BaseBuilder.php(1428): CodeIgniter\Database\BaseConnection->query('SELECT `DISTINC...', Array, false)
+#3 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(41): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+ERROR - 2026-02-23 10:55:28 --> mysqli_sql_exception: Unknown column 'DISTINCT' in 'field list' in C:\xampp\htdocs\projeto-escola\system\Database\MySQLi\Connection.php:295
+Stack trace:
+#0 C:\xampp\htdocs\projeto-escola\system\Database\MySQLi\Connection.php(295): mysqli->query('SELECT `DISTINC...', 0)
+#1 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(663): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `DISTINC...')
+#2 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(591): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `DISTINC...')
+#3 C:\xampp\htdocs\projeto-escola\system\Database\BaseBuilder.php(1428): CodeIgniter\Database\BaseConnection->query('SELECT `DISTINC...', Array, false)
+#4 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(41): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#7 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2026-02-23 10:55:28 --> Unknown column 'DISTINCT' in 'field list'
+#0 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(663): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `DISTINC...')
+#1 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(591): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `DISTINC...')
+#2 C:\xampp\htdocs\projeto-escola\system\Database\BaseBuilder.php(1428): CodeIgniter\Database\BaseConnection->query('SELECT `DISTINC...', Array, false)
+#3 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(41): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+ERROR - 2026-02-23 10:56:04 --> mysqli_sql_exception: Unknown column 'DISTINCT' in 'field list' in C:\xampp\htdocs\projeto-escola\system\Database\MySQLi\Connection.php:295
+Stack trace:
+#0 C:\xampp\htdocs\projeto-escola\system\Database\MySQLi\Connection.php(295): mysqli->query('SELECT `DISTINC...', 0)
+#1 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(663): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `DISTINC...')
+#2 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(591): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `DISTINC...')
+#3 C:\xampp\htdocs\projeto-escola\system\Database\BaseBuilder.php(1428): CodeIgniter\Database\BaseConnection->query('SELECT `DISTINC...', Array, false)
+#4 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(41): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#7 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2026-02-23 10:56:04 --> Unknown column 'DISTINCT' in 'field list'
+#0 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(663): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `DISTINC...')
+#1 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(591): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `DISTINC...')
+#2 C:\xampp\htdocs\projeto-escola\system\Database\BaseBuilder.php(1428): CodeIgniter\Database\BaseConnection->query('SELECT `DISTINC...', Array, false)
+#3 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(41): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+ERROR - 2026-02-23 10:56:26 --> mysqli_sql_exception: Unknown column 'DISTINCT' in 'field list' in C:\xampp\htdocs\projeto-escola\system\Database\MySQLi\Connection.php:295
+Stack trace:
+#0 C:\xampp\htdocs\projeto-escola\system\Database\MySQLi\Connection.php(295): mysqli->query('SELECT `DISTINC...', 0)
+#1 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(663): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `DISTINC...')
+#2 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(591): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `DISTINC...')
+#3 C:\xampp\htdocs\projeto-escola\system\Database\BaseBuilder.php(1428): CodeIgniter\Database\BaseConnection->query('SELECT `DISTINC...', Array, false)
+#4 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(41): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#7 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2026-02-23 10:56:26 --> Unknown column 'DISTINCT' in 'field list'
+#0 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(663): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `DISTINC...')
+#1 C:\xampp\htdocs\projeto-escola\system\Database\BaseConnection.php(591): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `DISTINC...')
+#2 C:\xampp\htdocs\projeto-escola\system\Database\BaseBuilder.php(1428): CodeIgniter\Database\BaseConnection->query('SELECT `DISTINC...', Array, false)
+#3 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(41): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2026-02-23 11:00:52 --> Invalid file: documentos/index.php
+#0 C:\xampp\htdocs\projeto-escola\system\View\View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('documentos/inde...')
+#1 C:\xampp\htdocs\projeto-escola\system\Common.php(1092): CodeIgniter\View\View->render('documentos/inde...', Array, true)
+#2 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(56): view('documentos/inde...', Array)
+#3 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2026-02-23 11:01:14 --> Invalid file: documentos/index.php
+#0 C:\xampp\htdocs\projeto-escola\system\View\View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('documentos/inde...')
+#1 C:\xampp\htdocs\projeto-escola\system\Common.php(1092): CodeIgniter\View\View->render('documentos/inde...', Array, true)
+#2 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(56): view('documentos/inde...', Array)
+#3 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2026-02-23 11:01:32 --> Invalid file: documentos/index.php
+#0 C:\xampp\htdocs\projeto-escola\system\View\View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('documentos/inde...')
+#1 C:\xampp\htdocs\projeto-escola\system\Common.php(1092): CodeIgniter\View\View->render('documentos/inde...', Array, true)
+#2 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(56): view('documentos/inde...', Array)
+#3 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2026-02-23 11:03:48 --> Invalid file: documentos/index.php
+#0 C:\xampp\htdocs\projeto-escola\system\View\View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('documentos/inde...')
+#1 C:\xampp\htdocs\projeto-escola\system\Common.php(1092): CodeIgniter\View\View->render('documentos/inde...', Array, true)
+#2 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(56): view('documentos/inde...', Array)
+#3 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2026-02-23 11:04:25 --> Invalid file: documentos/index.php
+#0 C:\xampp\htdocs\projeto-escola\system\View\View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('documentos/inde...')
+#1 C:\xampp\htdocs\projeto-escola\system\Common.php(1092): CodeIgniter\View\View->render('documentos/inde...', Array, true)
+#2 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(56): view('documentos/inde...', Array)
+#3 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2026-02-23 11:04:47 --> Invalid file: documentos/index.php
+#0 C:\xampp\htdocs\projeto-escola\system\View\View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('documentos/inde...')
+#1 C:\xampp\htdocs\projeto-escola\system\Common.php(1092): CodeIgniter\View\View->render('documentos/inde...', Array, true)
+#2 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(56): view('documentos/inde...', Array)
+#3 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2026-02-23 11:07:18 --> Invalid file: documentos/index.php
+#0 C:\xampp\htdocs\projeto-escola\system\View\View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('documentos/inde...')
+#1 C:\xampp\htdocs\projeto-escola\system\Common.php(1092): CodeIgniter\View\View->render('documentos/inde...', Array, true)
+#2 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(57): view('documentos/inde...', Array)
+#3 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2026-02-23 11:07:32 --> Invalid file: documentos/index.php
+#0 C:\xampp\htdocs\projeto-escola\system\View\View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('documentos/inde...')
+#1 C:\xampp\htdocs\projeto-escola\system\Common.php(1092): CodeIgniter\View\View->render('documentos/inde...', Array, true)
+#2 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(57): view('documentos/inde...', Array)
+#3 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2026-02-23 11:10:47 --> Invalid file: documentos/index.php
+#0 C:\xampp\htdocs\projeto-escola\system\View\View.php(198): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('documentos/inde...')
+#1 C:\xampp\htdocs\projeto-escola\system\Common.php(1092): CodeIgniter\View\View->render('documentos/inde...', Array, true)
+#2 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(43): view('documentos/inde...', Array)
+#3 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->index()
+#4 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2026-02-23 11:18:06 --> Undefined array key "endereco"
+#0 C:\xampp\htdocs\projeto-escola\app\Views\documentos\boletim.php(127): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\xampp\\htdocs...', 127)
+#1 C:\xampp\htdocs\projeto-escola\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\projeto-escola\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\projeto-escola\system\Common.php(1092): CodeIgniter\View\View->render('documentos/bole...', Array, true)
+#4 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(110): view('documentos/bole...', Array)
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->boletim(3)
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#7 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2026-02-23 12:12:09 --> Undefined array key "situacao"
+#0 C:\xampp\htdocs\projeto-escola\app\Views\documentos\boletim.php(45): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\xampp\\htdocs...', 45)
+#1 C:\xampp\htdocs\projeto-escola\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\projeto-escola\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\projeto-escola\system\Common.php(1092): CodeIgniter\View\View->render('documentos/bole...', Array, true)
+#4 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(93): view('documentos/bole...', Array)
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->boletim(3)
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#7 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2026-02-23 12:29:07 --> Undefined array key "ministerio"
+#0 C:\xampp\htdocs\projeto-escola\app\Views\documentos\boletim.php(6): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\xampp\\htdocs...', 6)
+#1 C:\xampp\htdocs\projeto-escola\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\projeto-escola\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\projeto-escola\system\Common.php(1092): CodeIgniter\View\View->render('documentos/bole...', Array, true)
+#4 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(64): view('documentos/bole...', Array)
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->boletim(3)
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#7 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2026-02-23 12:29:17 --> Undefined array key "ministerio"
+#0 C:\xampp\htdocs\projeto-escola\app\Views\documentos\boletim.php(6): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\xampp\\htdocs...', 6)
+#1 C:\xampp\htdocs\projeto-escola\system\View\View.php(214): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\projeto-escola\system\View\View.php(217): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\projeto-escola\system\Common.php(1092): CodeIgniter\View\View->render('documentos/bole...', Array, true)
+#4 C:\xampp\htdocs\projeto-escola\app\Controllers\Documentos.php(64): view('documentos/bole...', Array)
+#5 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(802): App\Controllers\Documentos->boletim(3)
+#6 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Documentos))
+#7 C:\xampp\htdocs\projeto-escola\system\CodeIgniter.php(317): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\projeto-escola\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
