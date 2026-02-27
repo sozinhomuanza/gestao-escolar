@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace Config;
 
@@ -6,51 +6,16 @@ use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Base URL
-    |--------------------------------------------------------------------------
-    */
     public $baseURL = 'https://gestao-escolar-production.up.railway.app/';
     public $indexPage = '';
     public $uriProtocol = 'REQUEST_URI';
-
-    /*
-    |--------------------------------------------------------------------------
-    | Localization
-    |--------------------------------------------------------------------------
-    */
     public $defaultLocale = 'pt';
     public $negotiateLocale = false;
     public $supportedLocales = ['pt', 'en'];
-
-    /*
-    |--------------------------------------------------------------------------
-    | Timezone (Angola)
-    |--------------------------------------------------------------------------
-    */
     public $appTimezone = 'Africa/Luanda';
     public $charset = 'UTF-8';
-
-    /*
-    |--------------------------------------------------------------------------
-    | HTTPS
-    |--------------------------------------------------------------------------
-    */
     public $forceGlobalSecureRequests = true;
-
-    /*
-    |--------------------------------------------------------------------------
-    | Reverse Proxy (Railway)
-    |--------------------------------------------------------------------------
-    */
     public $proxyIPs = ['100.64.0.0/10'];
-
-    /*
-    |--------------------------------------------------------------------------
-    | Session
-    |--------------------------------------------------------------------------
-    */
     public $sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler';
     public $sessionCookieName = 'ci_session';
     public $sessionExpiration = 7200;
@@ -58,24 +23,12 @@ class App extends BaseConfig
     public $sessionMatchIP = false;
     public $sessionTimeToUpdate = 300;
     public $sessionRegenerateDestroy = false;
-
-    /*
-    |--------------------------------------------------------------------------
-    | Cookies
-    |--------------------------------------------------------------------------
-    */
     public $cookiePrefix = '';
     public $cookieDomain = '';
     public $cookiePath = '/';
     public $cookieSecure = true;
     public $cookieHTTPOnly = true;
     public $cookieSameSite = 'Lax';
-
-    /*
-    |--------------------------------------------------------------------------
-    | CSRF Protection
-    |--------------------------------------------------------------------------
-    */
     public $CSRFTokenName = 'csrf_test_name';
     public $CSRFHeaderName = 'X-CSRF-TOKEN';
     public $CSRFCookieName = 'csrf_cookie_name';
@@ -83,11 +36,5 @@ class App extends BaseConfig
     public $CSRFRegenerate = true;
     public $CSRFRedirect = true;
     public $CSRFSameSite = 'Lax';
-
-    /*
-    |--------------------------------------------------------------------------
-    | Content Security Policy
-    |--------------------------------------------------------------------------
-    */
     public $CSPEnabled = false;
 }
