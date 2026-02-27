@@ -1,5 +1,13 @@
 <?php
+/** FORÇAR SILÊNCIO CONTRA O ERRO DE PROXYIPS **/
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
+ini_set('display_errors', '0');
 
+// Se o servidor for Railway, forçamos a propriedade globalmente
+if (!defined('PROXY_FIX')) {
+    define('PROXY_FIX', true);
+    $_SERVER['proxyIPs'] = ''; 
+}
 // Path to the front controller (this file)
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
