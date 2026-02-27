@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace Config;
 
@@ -6,35 +6,94 @@ use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
 {
-    public $baseURL = 'https://gestao-escolar-production.up.railway.app/';
-    public $indexPage = '';
-    public $uriProtocol = 'REQUEST_URI';
-    public $defaultLocale = 'pt';
-    public $negotiateLocale = false;
-    public $supportedLocales = ['pt', 'en'];
-    public $appTimezone = 'Africa/Luanda';
-    public $charset = 'UTF-8';
-    public $forceGlobalSecureRequests = true;
-    public $proxyIPs = ['100.64.0.0/10'];
-    public $sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler';
-    public $sessionCookieName = 'ci_session';
-    public $sessionExpiration = 7200;
-    public $sessionSavePath = WRITEPATH . 'session';
-    public $sessionMatchIP = false;
-    public $sessionTimeToUpdate = 300;
-    public $sessionRegenerateDestroy = false;
-    public $cookiePrefix = '';
-    public $cookieDomain = '';
-    public $cookiePath = '/';
-    public $cookieSecure = true;
-    public $cookieHTTPOnly = true;
-    public $cookieSameSite = 'Lax';
-    public $CSRFTokenName = 'csrf_test_name';
-    public $CSRFHeaderName = 'X-CSRF-TOKEN';
-    public $CSRFCookieName = 'csrf_cookie_name';
-    public $CSRFExpire = 7200;
-    public $CSRFRegenerate = true;
-    public $CSRFRedirect = true;
-    public $CSRFSameSite = 'Lax';
-    public $CSPEnabled = false;
+    /**
+     * --------------------------------------------------------------------------
+     * Base Site URL
+     * --------------------------------------------------------------------------
+     */
+    public string $baseURL = 'https://gestao-escolar-production.up.railway.app/';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Index File
+     * --------------------------------------------------------------------------
+     */
+    public string $indexPage = '';
+
+    /**
+     * --------------------------------------------------------------------------
+     * URI PROTOCOL
+     * --------------------------------------------------------------------------
+     */
+    public string $uriProtocol = 'REQUEST_URI';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Default Locale / Timezone
+     * --------------------------------------------------------------------------
+     */
+    public string $defaultLocale    = 'pt';
+    public bool $negotiateLocale    = false;
+    public array $supportedLocales  = ['pt', 'en'];
+    public string $appTimezone      = 'Africa/Luanda';
+    public string $charset          = 'UTF-8';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Global Secure Requests
+     * --------------------------------------------------------------------------
+     */
+    public bool $forceGlobalSecureRequests = true;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Proxy IPs (O Ponto Crítico do Erro)
+     * --------------------------------------------------------------------------
+     */
+    public string|array $proxyIPs = ''; // Railway usa proxies internos, deixar vazio ou '*' resolve o erro de undefined
+
+    /**
+     * --------------------------------------------------------------------------
+     * Session Variables
+     * --------------------------------------------------------------------------
+     */
+    public string $sessionDriver            = 'CodeIgniter\Session\Handlers\FileHandler';
+    public string $sessionCookieName        = 'ci_session';
+    public int $sessionExpiration           = 7200;
+    public string $sessionSavePath          = WRITEPATH . 'session';
+    public bool $sessionMatchIP             = false;
+    public int $sessionTimeToUpdate         = 300;
+    public bool $sessionRegenerateDestroy   = false;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Cookie Variables
+     * --------------------------------------------------------------------------
+     */
+    public string $cookiePrefix   = '';
+    public string $cookieDomain   = '';
+    public string $cookiePath     = '/';
+    public bool $cookieSecure     = true;
+    public bool $cookieHTTPOnly   = true;
+    public string $cookieSameSite = 'Lax';
+
+    /**
+     * --------------------------------------------------------------------------
+     * CSRF Keep Alive
+     * --------------------------------------------------------------------------
+     */
+    public string $CSRFTokenName   = 'csrf_test_name';
+    public string $CSRFHeaderName  = 'X-CSRF-TOKEN';
+    public string $CSRFCookieName  = 'csrf_cookie_name';
+    public int $CSRFExpire         = 7200;
+    public bool $CSRFRegenerate    = true;
+    public bool $CSRFRedirect      = true;
+    public string $CSRFSameSite   = 'Lax';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Content Security Policy
+     * --------------------------------------------------------------------------
+     */
+    public bool $CSPEnabled = false;
 }
