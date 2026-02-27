@@ -1,9 +1,6 @@
 <?php
-
 namespace Config;
-
 use CodeIgniter\Config\BaseConfig;
-
 class App extends BaseConfig
 {
     /*
@@ -11,88 +8,77 @@ class App extends BaseConfig
     | Base URL
     |--------------------------------------------------------------------------
     */
-    public string $baseURL = 'https://gestao-escolar-production.up.railway.app/';
-
-    public string $indexPage = '';
-
-    public string $uriProtocol = 'REQUEST_URI';
-
+    public $baseURL = 'https://gestao-escolar-production.up.railway.app/';
+    public $indexPage = '';
+    public $uriProtocol = 'REQUEST_URI';
     /*
     |--------------------------------------------------------------------------
     | Localization
     |--------------------------------------------------------------------------
     */
-    public string $defaultLocale = 'pt';
-    public bool $negotiateLocale = false;
-    public array $supportedLocales = ['pt', 'en'];
-
+    public $defaultLocale = 'pt';
+    public $negotiateLocale = false;
+    public $supportedLocales = ['pt', 'en'];
     /*
     |--------------------------------------------------------------------------
     | Timezone (Angola)
     |--------------------------------------------------------------------------
     */
-    public string $appTimezone = 'Africa/Luanda';
-
-    public string $charset = 'UTF-8';
-
+    public $appTimezone = 'Africa/Luanda';
+    public $charset = 'UTF-8';
     /*
     |--------------------------------------------------------------------------
     | HTTPS
     |--------------------------------------------------------------------------
     | No Railway a aplicação já roda em HTTPS
     */
-    public bool $forceGlobalSecureRequests = true;
-
+    public $forceGlobalSecureRequests = true;
     /*
     |--------------------------------------------------------------------------
     | Reverse Proxy (Railway)
     |--------------------------------------------------------------------------
     | Pode ser um array ou string CIDR. Evita aviso de propriedade indefinida.
     */
-    public array $proxyIPs = ['100.64.0.0/10'];
-
+    public $proxyIPs = ['100.64.0.0/10'];
     /*
     |--------------------------------------------------------------------------
     | Session
     |--------------------------------------------------------------------------
     */
-    public string $sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler';
-    public string $sessionCookieName = 'ci_session';
-    public int $sessionExpiration = 7200;
-    public string $sessionSavePath = WRITEPATH . 'session';
-    public bool $sessionMatchIP = false;
-    public int $sessionTimeToUpdate = 300;
-    public bool $sessionRegenerateDestroy = false;
-
+    public $sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler';
+    public $sessionCookieName = 'ci_session';
+    public $sessionExpiration = 7200;
+    public $sessionSavePath = WRITEPATH . 'session';
+    public $sessionMatchIP = false;
+    public $sessionTimeToUpdate = 300;
+    public $sessionRegenerateDestroy = false;
     /*
     |--------------------------------------------------------------------------
     | Cookies
     |--------------------------------------------------------------------------
     */
-    public string $cookiePrefix = '';
-    public string $cookieDomain = '';
-    public string $cookiePath = '/';
-    public bool $cookieSecure = true; // HTTPS obrigatório
-    public bool $cookieHTTPOnly = true;
-    public string $cookieSameSite = 'Lax';
-
+    public $cookiePrefix = '';
+    public $cookieDomain = '';
+    public $cookiePath = '/';
+    public $cookieSecure = true; // HTTPS obrigatório
+    public $cookieHTTPOnly = true;
+    public $cookieSameSite = 'Lax';
     /*
     |--------------------------------------------------------------------------
     | CSRF Protection
     |--------------------------------------------------------------------------
     */
-    public string $CSRFTokenName = 'csrf_test_name';
-    public string $CSRFHeaderName = 'X-CSRF-TOKEN';
-    public string $CSRFCookieName = 'csrf_cookie_name';
-    public int $CSRFExpire = 7200;
-    public bool $CSRFRegenerate = true;
-    public bool $CSRFRedirect = true;
-    public string $CSRFSameSite = 'Lax';
-
+    public $CSRFTokenName = 'csrf_test_name';
+    public $CSRFHeaderName = 'X-CSRF-TOKEN';
+    public $CSRFCookieName = 'csrf_cookie_name';
+    public $CSRFExpire = 7200;
+    public $CSRFRegenerate = true;
+    public $CSRFRedirect = true;
+    public $CSRFSameSite = 'Lax';
     /*
     |--------------------------------------------------------------------------
     | Content Security Policy
     |--------------------------------------------------------------------------
     */
-    public bool $CSPEnabled = false;
+    public $CSPEnabled = false;
 }
