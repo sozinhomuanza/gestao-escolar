@@ -55,7 +55,7 @@ class Request extends Message implements MessageInterface, RequestInterface
         /**
          * @deprecated $this->proxyIps property will be removed in the future
          */
-        $this->proxyIPs = $config->proxyIPs;
+        $this->proxyIPs = isset($config) ? ($config->proxyIPs ?? '') : '';
 
         if (empty($this->method)) {
             $this->method = $this->getServer('REQUEST_METHOD') ?? 'GET';
