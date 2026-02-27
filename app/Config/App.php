@@ -6,59 +6,92 @@ use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
 {
-    // A baseURL vazia permite que o CodeIgniter tente detectá-la sozinho
-    // Mas no Railway, é mais seguro usar a variável de ambiente ou o domínio fixo
-    public $baseURL = 'https://gestao-escolar-production.up.railway.app/';
+    /*
+    |--------------------------------------------------------------------------
+    | Base URL
+    |--------------------------------------------------------------------------
+    */
+    public string $baseURL = 'https://gestao-escolar-production.up.railway.app/';
 
-    public $indexPage = '';
+    public string $indexPage = '';
 
-    public $uriProtocol = 'REQUEST_URI';
+    public string $uriProtocol = 'REQUEST_URI';
 
-    public $defaultLocale = 'pt';
+    /*
+    |--------------------------------------------------------------------------
+    | Localization
+    |--------------------------------------------------------------------------
+    */
+    public string $defaultLocale = 'pt';
+    public bool $negotiateLocale = false;
+    public array $supportedLocales = ['pt', 'en'];
 
-    public $negotiateLocale = false;
+    /*
+    |--------------------------------------------------------------------------
+    | Timezone (Angola)
+    |--------------------------------------------------------------------------
+    */
+    public string $appTimezone = 'Africa/Luanda';
 
-    public $supportedLocales = ['pt', 'en'];
+    public string $charset = 'UTF-8';
 
-    public $appTimezone = 'America/Sao_Paulo';
+    /*
+    |--------------------------------------------------------------------------
+    | HTTPS
+    |--------------------------------------------------------------------------
+    | No Railway a aplicação já roda em HTTPS
+    */
+    public bool $forceGlobalSecureRequests = true;
 
-    public $charset = 'UTF-8';
-
-    // Importante: Deixe em false no Railway para evitar loops com o proxy deles
-    public $forceGlobalSecureRequests = false;
-
-    /**
-     * Reverse Proxy IPs
-     * * O Railway usa a rede 100.64.0.0/10. Definir isso aqui elimina 
-     * o Warning de $proxyIPs nos seus logs.
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Reverse Proxy (Railway)
+    |--------------------------------------------------------------------------
+    */
     public $proxyIPs = '100.64.0.0/10';
 
-    // --- Configurações de Sessão ---
-    public $sessionDriver            = 'CodeIgniter\Session\Handlers\FileHandler';
-    public $sessionCookieName        = 'ci_session';
-    public $sessionExpiration        = 7200;
-    public $sessionSavePath          = WRITEPATH . 'session';
-    public $sessionMatchIP           = false;
-    public $sessionTimeToUpdate      = 300;
-    public $sessionRegenerateDestroy = false;
+    /*
+    |--------------------------------------------------------------------------
+    | Session
+    |--------------------------------------------------------------------------
+    */
+    public string $sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler';
+    public string $sessionCookieName = 'ci_session';
+    public int $sessionExpiration = 7200;
+    public string $sessionSavePath = WRITEPATH . 'session';
+    public bool $sessionMatchIP = false;
+    public int $sessionTimeToUpdate = 300;
+    public bool $sessionRegenerateDestroy = false;
 
-    // --- Configurações de Cookie ---
-    public $cookiePrefix   = '';
-    public $cookieDomain   = '';
-    public $cookiePath     = '/';
-    public $cookieSecure   = false;
-    public $cookieHTTPOnly = true;
-    public $cookieSameSite = 'Lax';
+    /*
+    |--------------------------------------------------------------------------
+    | Cookies
+    |--------------------------------------------------------------------------
+    */
+    public string $cookiePrefix = '';
+    public string $cookieDomain = '';
+    public string $cookiePath = '/';
+    public bool $cookieSecure = true; // IMPORTANTE para HTTPS
+    public bool $cookieHTTPOnly = true;
+    public string $cookieSameSite = 'Lax';
 
-    // --- CSRF (Segurança) ---
-    public $CSRFTokenName   = 'csrf_test_name';
-    public $CSRFHeaderName  = 'X-CSRF-TOKEN';
-    public $CSRFCookieName  = 'csrf_cookie_name';
-    public $CSRFExpire      = 7200;
-    public $CSRFRegenerate  = true;
-    public $CSRFRedirect    = true;
-    public $CSRFSameSite    = 'Lax';
+    /*
+    |--------------------------------------------------------------------------
+    | CSRF Protection
+    |--------------------------------------------------------------------------
+    */
+    public string $CSRFTokenName = 'csrf_test_name';
+    public string $CSRFHeaderName = 'X-CSRF-TOKEN';
+    public string $CSRFCookieName = 'csrf_cookie_name';
+    public int $CSRFExpire = 7200;
+    public bool $CSRFRegenerate = true;
+    public bool $CSRFRedirect = true;
+    public string $CSRFSameSite = 'Lax';
 
-    public $CSPEnabled = false;
+    /*
+    |--------------------------------------------------------------------------
+    | Content Security Policy
+    |--------------------------------------------------------------------------
+    */
+    public bool $CSPEnabled = false;
 }
