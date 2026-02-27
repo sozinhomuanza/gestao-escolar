@@ -53,6 +53,15 @@ class Request extends Message implements MessageInterface, RequestInterface
     public function __construct($config = null)
     {
         /**
+         * AJUSTE DE SEGURANÇA: 
+         * Forçamos a existência da propriedade se ela não estiver no Config/App.php
+         * Isso evita o Warning que quebra os Headers no Railway/PHP 8.3
+         */
+        if (is_object($config) && !isset($config->proxyIPs)) {
+            $config->proxyIPs = '';
+        }
+
+        /**
          * @deprecated $this->proxyIps property will be removed in the future
          */
         $this->proxyIPs = isset($config) ? ($config->proxyIPs ?? '') : '';
