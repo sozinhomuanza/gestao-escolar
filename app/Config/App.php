@@ -47,8 +47,9 @@ class App extends BaseConfig
     |--------------------------------------------------------------------------
     | Reverse Proxy (Railway)
     |--------------------------------------------------------------------------
+    | Pode ser um array ou string CIDR. Evita aviso de propriedade indefinida.
     */
-    public $proxyIPs = '100.64.0.0/10';
+    public array $proxyIPs = ['100.64.0.0/10'];
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +72,7 @@ class App extends BaseConfig
     public string $cookiePrefix = '';
     public string $cookieDomain = '';
     public string $cookiePath = '/';
-    public bool $cookieSecure = true; // IMPORTANTE para HTTPS
+    public bool $cookieSecure = true; // HTTPS obrigatório
     public bool $cookieHTTPOnly = true;
     public string $cookieSameSite = 'Lax';
 
