@@ -1,189 +1,336 @@
 <?php
 
-/**
- * This file is part of CodeIgniter 4 framework.
- *
- * (c) CodeIgniter Foundation <admin@codeigniter.com>
- *
- * For the full copyright and license information, please view
- * the LICENSE file that was distributed with this source code.
- */
+namespace Config;
 
-namespace CodeIgniter\Config;
+use CodeIgniter\Config\BaseConfig;
 
-use Config\Encryption;
-use Config\Modules;
-use Config\Services;
-use ReflectionClass;
-use ReflectionException;
-use RuntimeException;
-
-/**
- * Class BaseConfig
- *
- * Not intended to be used on its own, this class will attempt to
- * automatically populate the child class' properties with values
- * from the environment.
- *
- * These can be set within the .env file.
- */
-class BaseConfig
+class App extends BaseConfig
 {
     /**
-     * An optional array of classes that will act as Registrars
-     * for rapidly setting config class properties.
+     * --------------------------------------------------------------------------
+     * Base Site URL
+     * --------------------------------------------------------------------------
+     * Em produção no Railway, defina a variável de ambiente:
+     *   app.baseURL = https://gestao-escolar-production.up.railway.app/
      *
-     * @var array
+     * O BaseConfig vai sobrescrever este valor automaticamente se a variável
+     * de ambiente existir. O valor abaixo é o fallback para desenvolvimento local.
+     *
+     * @var string
      */
-    public static $registrars = [];
+    public $baseURL = 'http://localhost:8080/';
 
     /**
-     * Has module discovery happened yet?
+     * --------------------------------------------------------------------------
+     * Index File
+     * --------------------------------------------------------------------------
+     * Sem index.php na URL (Railway usa PHP built-in server ou Nginx).
+     *
+     * @var string
+     */
+    public $indexPage = '';
+
+    /**
+     * --------------------------------------------------------------------------
+     * URI PROTOCOL
+     * --------------------------------------------------------------------------
+     *
+     * @var string
+     */
+    public $uriProtocol = 'REQUEST_URI';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Default Locale
+     * --------------------------------------------------------------------------
+     *
+     * @var string
+     */
+    public $defaultLocale = 'pt';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Negotiate Locale
+     * --------------------------------------------------------------------------
      *
      * @var bool
      */
-    protected static $didDiscovery = false;
+    public $negotiateLocale = false;
 
     /**
-     * The modules configuration.
+     * --------------------------------------------------------------------------
+     * Supported Locales
+     * --------------------------------------------------------------------------
      *
-     * @var Modules
+     * @var string[]
      */
-    protected static $moduleConfig;
+    public $supportedLocales = ['pt', 'en'];
 
     /**
-     * Will attempt to get environment variables with names
-     * that match the properties of the child class.
+     * --------------------------------------------------------------------------
+     * Application Timezone
+     * --------------------------------------------------------------------------
      *
-     * The "shortPrefix" is the lowercase-only config class name.
+     * @var string
+     */
+    public $appTimezone = 'America/Sao_Paulo';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Default Character Set
+     * --------------------------------------------------------------------------
+     *
+     * @var string
+     */
+    public $charset = 'UTF-8';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Force Global Secure Requests
+     * --------------------------------------------------------------------------
+     * Mantemos false — o Railway termina o HTTPS no proxy deles.
+     * Forçar HTTPS aqui causaria redirect loop.
+     *
+     * @var bool
+     */
+    public $forceGlobalSecureRequests = false;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Session Driver
+     * --------------------------------------------------------------------------
+     *
+     * @var string
+     */
+    public $sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Session Cookie Name
+     * --------------------------------------------------------------------------
+     *
+     * @var string
+     */
+    public $sessionCookieName = 'ci_session';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Session Expiration
+     * --------------------------------------------------------------------------
+     *
+     * @var int
+     */
+    public $sessionExpiration = 7200;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Session Save Path
+     * --------------------------------------------------------------------------
+     *
+     * @var string
+     */
+    public $sessionSavePath = WRITEPATH . 'session';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Session Match IP
+     * --------------------------------------------------------------------------
+     *
+     * @var bool
+     */
+    public $sessionMatchIP = false;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Session Time to Update
+     * --------------------------------------------------------------------------
+     *
+     * @var int
+     */
+    public $sessionTimeToUpdate = 300;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Session Regenerate Destroy
+     * --------------------------------------------------------------------------
+     *
+     * @var bool
+     */
+    public $sessionRegenerateDestroy = false;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Cookie Prefix
+     * --------------------------------------------------------------------------
+     * @deprecated use Config\Cookie::$prefix property instead.
+     * @var string
+     */
+    public $cookiePrefix = '';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Cookie Domain
+     * --------------------------------------------------------------------------
+     * @deprecated use Config\Cookie::$domain property instead.
+     * @var string
+     */
+    public $cookieDomain = '';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Cookie Path
+     * --------------------------------------------------------------------------
+     * @deprecated use Config\Cookie::$path property instead.
+     * @var string
+     */
+    public $cookiePath = '/';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Cookie Secure
+     * --------------------------------------------------------------------------
+     * @deprecated use Config\Cookie::$secure property instead.
+     * @var bool
+     */
+    public $cookieSecure = false;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Cookie HttpOnly
+     * --------------------------------------------------------------------------
+     * @deprecated use Config\Cookie::$httponly property instead.
+     * @var bool
+     */
+    public $cookieHTTPOnly = true;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Cookie SameSite
+     * --------------------------------------------------------------------------
+     * @deprecated use Config\Cookie::$samesite property instead.
+     * @var string
+     */
+    public $cookieSameSite = 'Lax';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Reverse Proxy IPs
+     * --------------------------------------------------------------------------
+     * O Railway usa a subnet 100.64.0.0/10 para proxies internos.
+     * Os IPs 100.64.0.2 e 100.64.0.3 visíveis nos logs são desta subnet.
+     * Isto resolve definitivamente o Warning: Undefined property e o
+     * erro "headers already sent".
+     *
+     * Pode sobrescrever via variável de ambiente no Railway:
+     *   app.proxyIPs = 100.64.0.0/10
+     *
+     * @var string|string[]
+     */
+    public $proxyIPs = '100.64.0.0/10';
+
+    /**
+     * --------------------------------------------------------------------------
+     * CSRF Token Name
+     * --------------------------------------------------------------------------
+     * @deprecated Use `Config\Security` $tokenName instead.
+     * @var string
+     */
+    public $CSRFTokenName = 'csrf_test_name';
+
+    /**
+     * --------------------------------------------------------------------------
+     * CSRF Header Name
+     * --------------------------------------------------------------------------
+     * @deprecated Use `Config\Security` $headerName instead.
+     * @var string
+     */
+    public $CSRFHeaderName = 'X-CSRF-TOKEN';
+
+    /**
+     * --------------------------------------------------------------------------
+     * CSRF Cookie Name
+     * --------------------------------------------------------------------------
+     * @deprecated Use `Config\Security` $cookieName instead.
+     * @var string
+     */
+    public $CSRFCookieName = 'csrf_cookie_name';
+
+    /**
+     * --------------------------------------------------------------------------
+     * CSRF Expire
+     * --------------------------------------------------------------------------
+     * @deprecated Use `Config\Security` $expire instead.
+     * @var int
+     */
+    public $CSRFExpire = 7200;
+
+    /**
+     * --------------------------------------------------------------------------
+     * CSRF Regenerate
+     * --------------------------------------------------------------------------
+     * @deprecated Use `Config\Security` $regenerate instead.
+     * @var bool
+     */
+    public $CSRFRegenerate = true;
+
+    /**
+     * --------------------------------------------------------------------------
+     * CSRF Redirect
+     * --------------------------------------------------------------------------
+     * @deprecated Use `Config\Security` $redirect instead.
+     * @var bool
+     */
+    public $CSRFRedirect = true;
+
+    /**
+     * --------------------------------------------------------------------------
+     * CSRF SameSite
+     * --------------------------------------------------------------------------
+     * @deprecated Use `Config\Security` $samesite instead.
+     * @var string
+     */
+    public $CSRFSameSite = 'Lax';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Content Security Policy
+     * --------------------------------------------------------------------------
+     *
+     * @var bool
+     */
+    public $CSPEnabled = false;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Constructor
+     * --------------------------------------------------------------------------
+     * Chama o parent que processa variáveis de ambiente automaticamente
+     * (via BaseConfig::__construct). Depois aplica detecção dinâmica da
+     * baseURL caso não tenha sido sobrescrita por variável de ambiente.
      */
     public function __construct()
     {
-        static::$moduleConfig = config('Modules');
+        // O parent::__construct() do BaseConfig lê automaticamente
+        // variáveis de ambiente no formato:
+        //   app.baseURL = https://gestao-escolar-production.up.railway.app/
+        //   app.proxyIPs = 100.64.0.0/10
+        // Basta definir essas variáveis no painel do Railway > Variables.
+        parent::__construct();
 
-        $this->registerProperties();
+        // Se a baseURL ainda aponta para localhost (não foi sobrescrita
+        // por variável de ambiente), detecta automaticamente pelo request.
+        if (
+            strpos($this->baseURL, 'localhost') !== false
+            && isset($_SERVER['HTTP_HOST'])
+        ) {
+            $isHttps = (
+                (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ||
+                (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
+                (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] === 'on')
+            );
 
-        $properties  = array_keys(get_object_vars($this));
-        $prefix      = static::class;
-        $slashAt     = strrpos($prefix, '\\');
-        $shortPrefix = strtolower(substr($prefix, $slashAt === false ? 0 : $slashAt + 1));
-
-        foreach ($properties as $property) {
-            $this->initEnvValue($this->{$property}, $property, $prefix, $shortPrefix);
-
-            if ($this instanceof Encryption && $property === 'key') {
-                if (strpos($this->{$property}, 'hex2bin:') === 0) {
-                    // Handle hex2bin prefix
-                    $this->{$property} = hex2bin(substr($this->{$property}, 8));
-                } elseif (strpos($this->{$property}, 'base64:') === 0) {
-                    // Handle base64 prefix
-                    $this->{$property} = base64_decode(substr($this->{$property}, 7), true);
-                }
-            }
-        }
-    }
-
-    /**
-     * Initialization an environment-specific configuration setting
-     *
-     * @param mixed $property
-     *
-     * @return mixed
-     */
-    protected function initEnvValue(&$property, string $name, string $prefix, string $shortPrefix)
-    {
-        if (is_array($property)) {
-            foreach (array_keys($property) as $key) {
-                $this->initEnvValue($property[$key], "{$name}.{$key}", $prefix, $shortPrefix);
-            }
-        } elseif (($value = $this->getEnvValue($name, $prefix, $shortPrefix)) !== false && $value !== null) {
-            if ($value === 'false') {
-                $value = false;
-            } elseif ($value === 'true') {
-                $value = true;
-            }
-            $property = is_bool($value) ? $value : trim($value, '\'"');
-        }
-
-        return $property;
-    }
-
-    /**
-     * Retrieve an environment-specific configuration setting
-     *
-     * @return mixed
-     */
-    protected function getEnvValue(string $property, string $prefix, string $shortPrefix)
-    {
-        $shortPrefix = ltrim($shortPrefix, '\\');
-
-        switch (true) {
-            case array_key_exists("{$shortPrefix}.{$property}", $_ENV):
-                return $_ENV["{$shortPrefix}.{$property}"];
-
-            case array_key_exists("{$shortPrefix}.{$property}", $_SERVER):
-                return $_SERVER["{$shortPrefix}.{$property}"];
-
-            case array_key_exists("{$prefix}.{$property}", $_ENV):
-                return $_ENV["{$prefix}.{$property}"];
-
-            case array_key_exists("{$prefix}.{$property}", $_SERVER):
-                return $_SERVER["{$prefix}.{$property}"];
-
-            default:
-                $value = getenv("{$shortPrefix}.{$property}");
-                $value = $value === false ? getenv("{$prefix}.{$property}") : $value;
-
-                return $value === false ? null : $value;
-        }
-    }
-
-    /**
-     * Provides external libraries a simple way to register one or more
-     * options into a config file.
-     *
-     * @throws ReflectionException
-     */
-    protected function registerProperties()
-    {
-        if (! static::$moduleConfig->shouldDiscover('registrars')) {
-            return;
-        }
-
-        if (! static::$didDiscovery) {
-            $locator         = Services::locator();
-            $registrarsFiles = $locator->search('Config/Registrar.php');
-
-            foreach ($registrarsFiles as $file) {
-                $className            = $locator->getClassname($file);
-                static::$registrars[] = new $className();
-            }
-
-            static::$didDiscovery = true;
-        }
-
-        $shortName = (new ReflectionClass($this))->getShortName();
-
-        // Check the registrar class for a method named after this class' shortName
-        foreach (static::$registrars as $callable) {
-            // ignore non-applicable registrars
-            if (! method_exists($callable, $shortName)) {
-                continue; // @codeCoverageIgnore
-            }
-
-            $properties = $callable::$shortName();
-
-            if (! is_array($properties)) {
-                throw new RuntimeException('Registrars must return an array of properties and their values.');
-            }
-
-            foreach ($properties as $property => $value) {
-                if (isset($this->{$property}) && is_array($this->{$property}) && is_array($value)) {
-                    $this->{$property} = array_merge($this->{$property}, $value);
-                } else {
-                    $this->{$property} = $value;
-                }
-            }
+            $protocol      = $isHttps ? 'https' : 'http';
+            $this->baseURL = $protocol . '://' . $_SERVER['HTTP_HOST'] . '/';
         }
     }
 }
