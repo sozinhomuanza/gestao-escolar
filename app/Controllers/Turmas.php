@@ -9,14 +9,16 @@ use App\Models\TrabalhadorModel;
 
 class Turmas extends BaseController
 {
+    protected $db;
+
+    public function __construct()
+    {
+        $this->db = \Config\Database::connect();
+    }
+
     public function index()
     {
-        $db = \Config\Database::connect();
-        
-        // Filtramos as turmas para que o usuário veja primeiro as do ano atual
-        $anoAtual = date('Y');
-
-        $data['turmas'] = $db->table('turmas')
+        $data['turmas'] = $this->db->table('turmas')
             ->select('turmas.*, trabalhadores.nome as nome_professor, disciplinas.nome_disciplina, salas.nome_sala')
             ->join('trabalhadores', 'trabalhadores.id_trabalhador = turmas.id_professor', 'left')
             ->join('disciplinas', 'disciplinas.id_disciplina = turmas.id_disciplina', 'left')
@@ -69,56 +71,11 @@ class Turmas extends BaseController
         return redirect()->to(base_url('turmas'));
     }
 
-    public function editar($id_turma)
-    {
-        $trabalhadorModel = new TrabalhadorModel();
-        $db = \Config\Database::connect();
-
-        $data = [
-            'turma'       => $db->table('turmas')->where('id_turma', $id_turma)->get()->getRowArray(),
-            'salas'       => (new SalaModel())->findAll(),
-            'disciplinas' => (new DisciplinaModel())->findAll(),
-            'professores' => $trabalhadorModel
-                ->groupStart()
-                    ->where('funcao', 'Professor')
-                    ->orWhere('funcao', 'Professora')
-                ->groupEnd()
-                ->findAll(),
-        ];
-
-        echo view('templates/header');
-        echo view('templates/sidebar');
-        echo view('turmas/editar', $data);
-        echo view('templates/footer');
-    }
-
-    public function update()
-    {
-        $model    = new TurmaModel();
-        $id_turma = $this->request->getPost('id_turma');
-        $data     = [
-            'nome_turma'    => $this->request->getPost('nome_turma'),
-            'classe'        => $this->request->getPost('classe'),
-            'id_professor'  => $this->request->getPost('id_professor'),
-            'id_disciplina' => $this->request->getPost('id_disciplina'),
-            'id_sala'       => $this->request->getPost('id_sala'),
-            'periodo'       => $this->request->getPost('periodo'),
-            'ano_letivo'    => $this->request->getPost('ano_letivo'),
-        ];
-
-        $model->update($id_turma, $data);
-        session()->setFlashdata('sucesso', 'Turma atualizada com sucesso!');
-        return redirect()->to(base_url('turmas'));
-    }
-
     public function detalhes($id_turma = null)
     {
         if (!$id_turma) return redirect()->to(base_url('turmas'));
 
-        $db = \Config\Database::connect();
-
-        // 1. Pegamos os dados da Turma
-        $turma = $db->table('turmas')
+        $data['turma'] = $this->db->table('turmas')
             ->select('turmas.*, trabalhadores.nome as nome_professor, disciplinas.nome_disciplina, salas.nome_sala')
             ->join('trabalhadores', 'trabalhadores.id_trabalhador = turmas.id_professor', 'left')
             ->join('disciplinas', 'disciplinas.id_disciplina = turmas.id_disciplina', 'left')
@@ -126,20 +83,15 @@ class Turmas extends BaseController
             ->where('turmas.id_turma', $id_turma)
             ->get()->getRowArray();
 
-        $data['turma'] = $turma;
-
-        // 2. FILTRO IMPORTANTE: Pegamos apenas alunos com matrícula CONFIRMADA nesta turma
-        // E garantimos que não haja duplicatas na exibição
-        $data['alunos'] = $db->table('matriculas')
+        $data['alunos'] = $this->db->table('matriculas')
             ->select('alunos.nome, alunos.telefone, matriculas.id_matricula, matriculas.status, matriculas.data_inscricao')
             ->join('alunos', 'alunos.id_aluno = matriculas.id_aluno')
             ->where('matriculas.id_turma', $id_turma)
-            ->where('matriculas.status', 'Confirmada') // APENAS CONFIRMADOS
+            ->where('matriculas.status', 'Confirmada')
             ->orderBy('alunos.nome', 'ASC')
             ->get()->getResultArray();
 
-        // 3. Opcional: Lista de alunos pendentes (caso queira ver quem ainda não foi confirmado)
-        $data['pendentes'] = $db->table('matriculas')
+        $data['pendentes'] = $this->db->table('matriculas')
             ->join('alunos', 'alunos.id_aluno = matriculas.id_aluno')
             ->where('matriculas.id_turma', $id_turma)
             ->where('matriculas.status', 'Pendente')
@@ -153,9 +105,12 @@ class Turmas extends BaseController
 
     public function matricular()
     {
-        $db = \Config\Database::connect();
-        $data['alunos'] = $db->table('alunos')->orderBy('nome', 'ASC')->get()->getResultArray();
-        $data['turmas'] = $db->table('turmas')->where('ano_letivo', date('Y'))->get()->getResultArray();
+        $data['alunos'] = $this->db->table('alunos')->orderBy('nome', 'ASC')->get()->getResultArray();
+        $data['turmas'] = $this->db->table('turmas')->where('ano_letivo', date('Y'))->get()->getResultArray();
+        
+        $data['rupes_disponiveis'] = $this->db->table('estoque_rupes')
+            ->where('status', 'livre')
+            ->countAllResults();
 
         echo view('templates/header');
         echo view('templates/sidebar');
@@ -163,45 +118,74 @@ class Turmas extends BaseController
         echo view('templates/footer');
     }
 
+    /**
+     * MÉTODO CORRIGIDO: salvarMatricula
+     * Compatível com a rota e com o sistema de estoque de RUPEs
+     */
     public function salvarMatricula()
     {
-        $db       = \Config\Database::connect();
-        $id_aluno = $this->request->getPost('id_aluno');
-        $id_turma = $this->request->getPost('id_turma');
+        // Pega os IDs do formulário (verifique se os nomes batem com o name="" do HTML)
+        $id_aluno  = $this->request->getPost('id_aluno') ?? $this->request->getPost('aluno_id');
+        $id_turma  = $this->request->getPost('id_turma') ?? $this->request->getPost('turma_id');
+        $gerarRupe = $this->request->getPost('gerar_rupe');
 
-        // Pegamos o ano lectivo da turma alvo
-        $turmaAlvo = $db->table('turmas')->where('id_turma', $id_turma)->get()->getRowArray();
-        $anoDaTurma = $turmaAlvo['ano_letivo'];
+        $this->db->transStart(); // Inicia transação
 
-        // VERIFICAÇÃO DE DUPLICIDADE POR ANO LECTIVO
-        // Verifica se o aluno já tem qualquer matrícula (Pendente ou Confirmada) NESTE ANO em QUALQUER turma
-        $jaMatriculado = $db->table('matriculas')
-            ->join('turmas', 'turmas.id_turma = matriculas.id_turma')
-            ->where('matriculas.id_aluno', $id_aluno)
-            ->where('turmas.ano_letivo', $anoDaTurma)
-            ->whereIn('matriculas.status', ['Pendente', 'Confirmada'])
-            ->countAllResults();
+        try {
+            // 1. Validar Turma
+            $turma = $this->db->table('turmas')->where('id_turma', $id_turma)->get()->getRowArray();
+            if (!$turma) throw new \Exception('Turma não encontrada.');
 
-        if ($jaMatriculado) {
-            session()->setFlashdata('erro', 'Este aluno já possui uma matrícula ativa ou pendente para o ano lectivo ' . $anoDaTurma);
-            return redirect()->back();
+            // 2. Verificar duplicidade
+            $jaMatriculado = $this->db->table('matriculas')
+                ->join('turmas', 'turmas.id_turma = matriculas.id_turma')
+                ->where('matriculas.id_aluno', $id_aluno)
+                ->where('turmas.ano_letivo', $turma['ano_letivo'])
+                ->whereIn('matriculas.status', ['Pendente', 'Confirmada'])
+                ->countAllResults();
+
+            if ($jaMatriculado) throw new \Exception('Aluno já matriculado neste ano letivo.');
+
+            // 3. Inserir Matrícula
+            $this->db->table('matriculas')->insert([
+                'id_aluno'       => $id_aluno,
+                'id_turma'       => $id_turma,
+                'status'         => 'Pendente',
+                'data_inscricao' => date('Y-m-d H:i:s')
+            ]);
+
+            // 4. Consumir RUPE se solicitado
+            if ($gerarRupe == "1" || $gerarRupe == "on") {
+                $rupe = $this->db->table('estoque_rupes')
+                           ->where('status', 'livre')
+                           ->orderBy('id', 'ASC')
+                           ->limit(1)->get()->getRow();
+
+                if (!$rupe) throw new \Exception('Estoque de RUPEs vazio! Importe novas referências.');
+
+                $this->db->table('estoque_rupes')->where('id', $rupe->id)->update([
+                    'status'   => 'utilizado',
+                    'aluno_id' => $id_aluno,
+                    'data_uso' => date('Y-m-d H:i:s')
+                ]);
+
+                $this->db->transComplete();
+                // Redireciona direto para a impressão
+                return redirect()->to(base_url("financeiro/imprimir_guia/{$id_aluno}/{$rupe->numero_rupe}"));
+            }
+
+            $this->db->transComplete();
+            return redirect()->to(base_url('turmas/detalhes/' . $id_turma))->with('sucesso', 'Matrícula Pendente salva!');
+
+        } catch (\Exception $e) {
+            $this->db->transRollback();
+            return redirect()->back()->with('erro', $e->getMessage());
         }
-
-        $db->table('matriculas')->insert([
-            'id_aluno' => $id_aluno,
-            'id_turma' => $id_turma,
-            'status'   => 'Pendente',
-            'data_inscricao' => date('Y-m-d H:i:s')
-        ]);
-
-        session()->setFlashdata('sucesso', 'Inscrição realizada com sucesso!');
-        return redirect()->to(base_url('turmas/detalhes/' . $id_turma));
     }
 
     public function confirmar($id_matricula)
     {
-        $db = \Config\Database::connect();
-        $db->table('matriculas')
+        $this->db->table('matriculas')
            ->where('id_matricula', $id_matricula)
            ->update(['status' => 'Confirmada']);
 
@@ -209,24 +193,12 @@ class Turmas extends BaseController
         return redirect()->back();
     }
 
-    public function cancelarMatricula($id_matricula)
-    {
-        $db = \Config\Database::connect();
-        $db->table('matriculas')
-           ->where('id_matricula', $id_matricula)
-           ->update(['status' => 'Cancelada']);
-
-        session()->setFlashdata('sucesso', 'Matrícula cancelada.');
-        return redirect()->back();
-    }
-
     public function excluir()
     {
-        $id    = $this->request->getPost('id_turma');
-        $model = new TurmaModel();
+        $id = $this->request->getPost('id_turma');
         if ($id) {
-            $model->delete($id);
-            session()->setFlashdata('sucesso', 'Turma removida com sucesso.');
+            (new TurmaModel())->delete($id);
+            session()->setFlashdata('sucesso', 'Turma removida.');
         }
         return redirect()->to(base_url('turmas'));
     }

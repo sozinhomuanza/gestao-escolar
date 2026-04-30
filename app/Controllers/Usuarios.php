@@ -11,15 +11,11 @@ class Usuarios extends BaseController
 
     public function __construct()
     {
-        helper(['url', 'form']);
+        helper(['url', 'form', 'filesystem']); 
         $this->usuario_model = new UsuarioModel();
         $this->locModel      = new LocalizacaoModel();
     }
 
-    /**
-     * Centraliza a renderização das views e garante que dados básicos 
-     * (como título) estejam presentes.
-     */
     private function exibir($view, $data = []) 
     {
         return view('templates/header', $data)
@@ -33,11 +29,30 @@ class Usuarios extends BaseController
         if (!session()->get('logado')) {
             return redirect()->to(base_url('login'));
         }
-        if (session()->get('perfil') !== 'Administrador') {
+        if (strtolower(session()->get('perfil')) !== 'administrador') {
             session()->setFlashdata('erro', 'Acesso negado. Apenas administradores podem gerir utilizadores.');
             return redirect()->to(base_url('inicio'));
         }
         return null;
+    }
+
+    private function uploadFoto($file, $fotoAntiga = null)
+    {
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            // Remove a foto antiga se existir e não for a padrão
+            if ($fotoAntiga && $fotoAntiga !== 'default.png') {
+                $caminhoAntigo = FCPATH . 'uploads/usuarios/' . $fotoAntiga;
+                if (file_exists($caminhoAntigo)) {
+                    unlink($caminhoAntigo);
+                }
+            }
+
+            $novoNome = $file->getRandomName();
+            $file->move(FCPATH . 'uploads/usuarios', $novoNome);
+            return $novoNome;
+        }
+        // Se não houve upload novo, mantém a foto que já existia
+        return $fotoAntiga ?: 'default.png';
     }
 
     public function index()
@@ -56,10 +71,7 @@ class Usuarios extends BaseController
 
         $data['titulo_pagina'] = 'Registar Novo Utilizador';
         $data['provincias']    = $this->locModel->getProvincias();
-        $data['id_provincia']  = '';
-        $data['id_municipio']  = '';
-        $data['id_comuna']     = '';
-
+        
         return $this->exibir('usuarios/novo', $data);
     }
 
@@ -68,8 +80,8 @@ class Usuarios extends BaseController
         if ($redir = $this->verificarAdmin()) return $redir;
 
         $dados = $this->request->getPost();
+        $file  = $this->request->getFile('foto');
 
-        // Validações de duplicidade
         if ($this->usuario_model->where('username', $dados['username'])->first()) {
             return redirect()->back()->withInput()->with('erro', 'Este nome de utilizador já está em uso.');
         }
@@ -82,16 +94,19 @@ class Usuarios extends BaseController
             return redirect()->back()->withInput()->with('erro', 'A senha deve ter pelo menos 6 caracteres.');
         }
 
+        $nomeFoto = $this->uploadFoto($file);
+
         $this->usuario_model->insert([
             'nome'         => $dados['nome'],
             'email'        => $dados['email'],
             'username'     => $dados['username'],
             'senha'        => password_hash($dados['senha'], PASSWORD_DEFAULT),
             'perfil'       => $dados['perfil'],
+            'foto'         => $nomeFoto,
             'ativo'        => 1,
-            'id_provincia' => $dados['id_provincia'] ?: null,
-            'id_municipio' => $dados['id_municipio'] ?: null,
-            'id_comuna'    => $dados['id_comuna']    ?: null,
+            'id_provincia' => $dados['id_provincia'] ?? null,
+            'id_municipio' => $dados['id_municipio'] ?? null,
+            'id_comuna'    => $dados['id_comuna']    ?? null,
         ]);
 
         return redirect()->to(base_url('usuarios'))->with('sucesso', 'Utilizador criado com sucesso!');
@@ -110,9 +125,6 @@ class Usuarios extends BaseController
         $data['usuario']       = $usuario;
         $data['titulo_pagina'] = 'Editar Utilizador';
         $data['provincias']    = $this->locModel->getProvincias();
-        $data['id_provincia']  = $usuario['id_provincia'] ?? '';
-        $data['id_municipio']  = $usuario['id_municipio'] ?? '';
-        $data['id_comuna']     = $usuario['id_comuna']    ?? '';
 
         return $this->exibir('usuarios/editar', $data);
     }
@@ -123,18 +135,34 @@ class Usuarios extends BaseController
 
         $dados = $this->request->getPost();
         $id    = $dados['id_usuario'];
+        $file  = $this->request->getFile('foto');
+        
+        $usuarioAtual = $this->usuario_model->find($id);
 
         $atualizar = [
             'nome'         => $dados['nome'],
             'email'        => $dados['email'],
             'perfil'       => $dados['perfil'],
             'ativo'        => $dados['ativo'] ?? 1,
-            'id_provincia' => $dados['id_provincia'] ?: null,
-            'id_municipio' => $dados['id_municipio'] ?: null,
-            'id_comuna'    => $dados['id_comuna']    ?: null,
+            'id_provincia' => $dados['id_provincia'] ?? $usuarioAtual['id_provincia'],
+            'id_municipio' => $dados['id_municipio'] ?? $usuarioAtual['id_municipio'],
+            'id_comuna'    => $dados['id_comuna']    ?? $usuarioAtual['id_comuna'],
         ];
 
-        // Atualização de senha apenas se preenchida
+        // Processamento da Foto: Se não enviar nova foto, mantém explicitamente a antiga
+        if ($file && $file->isValid()) {
+            $atualizar['foto'] = $this->uploadFoto($file, $usuarioAtual['foto']);
+        } else {
+            $atualizar['foto'] = $usuarioAtual['foto'];
+        }
+
+        // Se o administrador estiver a editar a própria conta, atualiza a sessão imediatamente
+        if ($id == session()->get('id_usuario')) {
+            session()->set('nome', $atualizar['nome']);
+            session()->set('foto', $atualizar['foto']);
+            session()->set('perfil', $atualizar['perfil']);
+        }
+
         if (!empty($dados['nova_senha'])) {
             if (strlen($dados['nova_senha']) < 6) {
                 return redirect()->back()->with('erro', 'A nova senha deve ter pelo menos 6 caracteres.');
@@ -151,9 +179,15 @@ class Usuarios extends BaseController
         if ($redir = $this->verificarAdmin()) return $redir;
 
         $id = $this->request->getPost('id_usuario');
+        $usuario = $this->usuario_model->find($id);
 
         if ($id == session()->get('id_usuario')) {
             return redirect()->to(base_url('usuarios'))->with('erro', 'Não pode excluir a sua própria conta.');
+        }
+
+        if ($usuario['foto'] && $usuario['foto'] !== 'default.png') {
+            $caminho = FCPATH . 'uploads/usuarios/' . $usuario['foto'];
+            if (file_exists($caminho)) unlink($caminho);
         }
 
         $this->usuario_model->delete($id);

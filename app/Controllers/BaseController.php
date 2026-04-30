@@ -12,7 +12,7 @@ abstract class BaseController extends Controller
     protected $request;
     
     /**
-     * Helpers carregados automaticamente em todos os controllers que estendem BaseController.
+     * Helpers carregados automaticamente.
      */
     protected $helpers = ['url', 'form', 'session', 'text'];
 
@@ -24,8 +24,10 @@ abstract class BaseController extends Controller
 
     /**
      * Normaliza o perfil do usuário para chaves simplificadas.
+     * Mantenha como PROTECTED para que os filhos possam usar se necessário, 
+     * ou PRIVATE se apenas o BaseController for usar.
      */
-    private function perfilNormalizado(): string
+    protected function perfilNormalizado(): string
     {
         $perfilSessao = trim(session()->get('perfil') ?? '');
         $perfilSessao = mb_strtolower($perfilSessao, 'UTF-8');
@@ -44,20 +46,19 @@ abstract class BaseController extends Controller
             'professora'    => 'professor',
         ];
 
-        return $mapa[$perfilSessao] ?? $perfilSessao;
+        $perfilMapeado = $mapa[$perfilSessao] ?? $perfilSessao;
+        return (string)$perfilMapeado;
     }
 
     /**
-     * Protege o acesso.
-     * * @param array $niveisPermitidos Ex: ['admin', 'professor']
+     * Protege o acesso às rotas.
+     * @param array $niveisPermitidos Ex: ['admin', 'professor']
      */
     protected function proteger(array $niveisPermitidos = [])
     {
         // 1. Verifica se está logado
         if (!session()->get('logado')) {
-            if (ob_get_length()) ob_clean();
-            
-            // Usamos o response do framework para redirecionar de forma limpa
+            // Redirecionamento limpo usando o framework
             header("Location: " . base_url('login'));
             exit;
         }
@@ -66,14 +67,16 @@ abstract class BaseController extends Controller
         if (!empty($niveisPermitidos)) {
             $perfilAtual = $this->perfilNormalizado();
             
-            // Normaliza a entrada para garantir comparação lowercase
+            // Normaliza os níveis passados para garantir comparação correta
             $permitidos = array_map('strtolower', $niveisPermitidos);
 
+            // Se o perfil 'admin' estiver na lista, incluímos também o mapeamento 'administrador'
+            if (in_array('admin', $permitidos) && !in_array('administrador', $permitidos)) {
+                $permitidos[] = 'administrador';
+            }
+
             if (!in_array($perfilAtual, $permitidos)) {
-                if (ob_get_length()) ob_clean();
-                
-                session()->setFlashdata('erro', 'Acesso negado: o seu perfil (' . $perfilAtual . ') não tem permissão para esta acção.');
-                
+                session()->setFlashdata('erro', 'Acesso negado: o seu perfil não tem permissão para esta acção.');
                 header("Location: " . base_url('inicio'));
                 exit;
             }

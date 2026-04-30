@@ -20,10 +20,21 @@ class Alunos extends BaseController
 
     public function index()
     {
-        $id_turma = $this->request->getGet('turma');
+        $id_turma   = $this->request->getGet('turma');
+        $por_pagina = (int) $this->request->getGet('por_pagina');
+        $por_pagina = in_array($por_pagina, [10, 25, 50, 100]) ? $por_pagina : 10;
+        $pagina     = max(1, (int) $this->request->getGet('pagina'));
+
         $turmaModel = new TurmaModel();
 
-        $data['alunos'] = $this->aluno_model->getAlunosComLocalizacao($id_turma);
+        $total      = $this->aluno_model->contarAlunos($id_turma);
+        $offset     = ($pagina - 1) * $por_pagina;
+
+        $data['alunos']            = $this->aluno_model->getAlunosComLocalizacao($id_turma, $por_pagina, $offset);
+        $data['total_alunos']      = $total;
+        $data['por_pagina']        = $por_pagina;
+        $data['pagina_atual']      = $pagina;
+        $data['total_paginas']     = $total > 0 ? (int) ceil($total / $por_pagina) : 1;
         $data['turma_selecionada'] = $id_turma;
         $data['turmas']            = $turmaModel->findAll();
         $data['titulo_pagina']     = 'Lista de Alunos';
